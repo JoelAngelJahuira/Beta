@@ -4,7 +4,252 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>RAPTOR_GYM</title> 
-    <link rel="stylesheet" href="../ANGEL2/css/index.css"> 
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        header {
+            background-color: #1f1f1f;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .logo {
+            color: #00ff88;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-icono {
+            width: 30px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar ul li a {
+            color: #f0f0f0;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: #00ff88;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        /* Carrusel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            width: 300%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        #slide1:checked ~ .slides {
+            transform: translateX(0%);
+        }
+
+        #slide2:checked ~ .slides {
+            transform: translateX(-100%);
+        }
+
+        #slide3:checked ~ .slides {
+            transform: translateX(-200%);
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .navigation label {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #slide1:checked ~ .navigation label:nth-child(1),
+        #slide2:checked ~ .navigation label:nth-child(2),
+        #slide3:checked ~ .navigation label:nth-child(3) {
+            background-color: #00ff88;
+        }
+
+        .titulo2 {
+            text-align: center;
+            font-size: 3rem;
+            color: #00ff88;
+            margin-top: 30px;
+        }
+
+        .texto2 {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #ccc;
+            margin: 20px auto 40px auto;
+            width: 80%;
+            line-height: 1.8;
+        }
+
+        .tienda_titulo {
+            background: #00ff88;
+            color: #121212;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 40px;
+        }
+
+        .carousel-section-2 {
+            padding: 2rem;
+        }
+
+        .carousel-2 {
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+
+        .carousel-2::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .carousel-2::-webkit-scrollbar-thumb {
+            background: #00ff88;
+            border-radius: 5px;
+        }
+
+        .producto {
+            background-color: #1f1f1f;
+            padding: 1rem;
+            border-radius: 10px;
+            scroll-snap-align: start;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 255, 157, 0.1);
+        }
+
+        .producto img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .producto h3 {
+            margin-top: 10px;
+            color: #00ff88;
+            font-size: 1rem;
+        }
+
+        .producto span {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .producto a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            margin-top: 40px;
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar ul {
+                flex-direction: column;
+                background-color: #1f1f1f;
+                position: absolute;
+                top: 80px;
+                right: 0;
+                width: 100%;
+                display: none;
+            }
+
+            .menu-icono {
+                display: block;
+            }
+
+            #menu:checked ~ .navbar ul {
+                display: flex;
+            }
+        }
+    </style>
 </head> 
 
 <body> 
@@ -36,12 +281,10 @@
 
     <!-- Carrusel --> 
     <div class="carousel"> 
-        <!-- Inputs --> 
         <input type="radio" name="slides" id="slide1" checked> 
         <input type="radio" name="slides" id="slide2"> 
         <input type="radio" name="slides" id="slide3"> 
 
-        <!-- Imágenes --> 
         <div class="slides"> 
             <div class="slide"> 
                 <img src="SLIDER/slifder1.avif" alt="Imagen 1"> 
@@ -54,7 +297,6 @@
             </div> 
         </div> 
 
-        <!-- Controles --> 
         <div class="navigation"> 
             <label for="slide1"></label> 
             <label for="slide2"></label> 
@@ -70,110 +312,4 @@
             Contamos con máquinas de última generación, clases grupales, entrenadores personales y asesoría nutricional. 
             Entrena a tu ritmo con horarios amplios (5 a.m. a 11 p.m., todos los días), en un ambiente seguro y motivador. 
             ¡Tu primer día es gratis! Ven a conocernos y empieza hoy tu cambio.
-        </h2> 
-    </div> 
-
-    <!-- Productos --> 
-    <header class="tienda_titulo"> 
-        <h1>NUESTROS PRODUCTOS</h1> 
-    </header> 
-
-    <section class="carousel-section-2"> 
-        <div class="carousel-2"> 
-            <!-- Productos individuales -->
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/imagen p1.jpg" alt="Producto 1"> 
-                    <h3>PROTENIA MASA MUSCULAR (PROTEINA)</h3> 
-                    <span>$100</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/IMAGEN P2.png" alt="Producto 2">
-                    <h3>Energizante B-X (Energizante)</h3> 
-                    <span>$60</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/IMAGEN P4.jpg" alt="Producto 3"> 
-                    <h3>Tomatodo de metal (Tomatodo)</h3> 
-                    <span>$70</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="../ANGEL2/PRODUCTOS/IMAGEN P3.jpg" alt="Producto 4"> 
-                    <h3>Bebida energizante  Red Bull (Red Bull)</h3> 
-                    <span>$80</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/IMAGEN p5.jpg" alt="Producto 5"> 
-                    <h3>Llavero de pesa</h3> 
-                    <span>$90</span> 
-                </a>
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/IMAGEN p6.jpeg" alt="Producto 6"> 
-                    <h3>Collar de pesa</h3> 
-                    <span>$100</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/Imagen p7.avif" alt="Producto 7"> 
-                    <h3>Creatina (NUTREX)</h3> 
-                    <span>$100</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/Imagen p8.avif" alt="Producto 8"> 
-                    <h3>Omega 3 (Nature's Truth)</h3> 
-                    <span>$100</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/imagen p9.jpg" alt="Producto 9"> 
-                    <h3>Toallas para secado personal</h3> 
-                    <span>$100</span> 
-                </a> 
-            </div> 
-
-            <div class="producto"> 
-                <a href="/Productos.html"> 
-                    <img src="PRODUCTOS/Imagen10.avif" alt="Producto 10"> 
-                    <h3>Desodorante (Desodorante Axe)</h3> 
-                    <span>$100</span> 
-                </a> 
-            </div> 
-        </div> 
-    </section>
-
-    <!-- Banner -->
-    <div class="banner">
-        <img src="ICONOS-BANERS/gimnasio.jpeg" alt="Banner" height="100%" width="100%">
-    </div>
-
-    <!-- Footer -->
-    <footer class="copyright">
-        <center>
-            <p>&copy; 2025 Natura. Todos los derechos reservados.</p>
-        </center>
-    </footer>
-
-</body>
-</html>
+        </
